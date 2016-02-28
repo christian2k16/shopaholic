@@ -28,7 +28,7 @@ public class ShopaholicEbayTest {
 	public Object[][] AddCartTest() {
 		return new Object[][] {
 				// TODO Modify Data
-				new Object[] { "NEW Electric EG1 Dark Knight Blue ski snowboard goggles +lens 2014 Msrp$100" } };
+				new Object[] { "141456322017_title" } };
 	}
 
 	/**
@@ -45,17 +45,16 @@ public class ShopaholicEbayTest {
 		this.driver.findElement(By.id("pass")).clear();
 		this.driver.findElement(By.id("pass")).sendKeys("dummy777");
 		SelUtil.superClick(this.driver,
-				"csi:sgnBt:Sporting Goods:area[alt=\"End-of-Season Clearance | Up to 70% off Snowboards, skis, and more | Free Shipping | Shop now\"]:img[alt=\"NEW Electric EG1 Dark Knight Blue ski snowboard goggles +lens 2014 Msrp$100\"]:isCartBtn_btn"
+				"sgnBt:.//*[@id='navigationFragment']/div/table/tbody/tr/td[9]/a:.//*[@id='mainContent']/div[4]/div[2]/map/area[2]:.//*[@id='w4']/div/div[2]/div/div[1]/div:isCartBtn_btn"
 						.split(":"),
-				new SelUtil.STRATEGY[] { STRATEGY.ID, STRATEGY.ID, STRATEGY.TEXT, STRATEGY.CSS, STRATEGY.CSS,
-						STRATEGY.ID });
+				new SelUtil.STRATEGY[] { STRATEGY.ID, STRATEGY.XPATH, STRATEGY.XPATH, STRATEGY.XPATH, STRATEGY.ID });
 	}
 
 	@DataProvider
 	public Object[][] AddWatchListTest() {
 		return new Object[][] {
 				// TODO Modify Data
-				new Object[] { "a.vip.item-title" } };
+				new Object[] { "vip item-title" } };
 	}
 
 	@DataProvider
@@ -71,7 +70,7 @@ public class ShopaholicEbayTest {
 	@Test(priority = 1, dataProvider = "AddCartTest")
 	public void f1(String s) {
 		this.driver.findElement(By.id("gh-cart-i")).click();
-		this.driver.findElement(By.linkText(s)).click();
+		this.driver.findElement(By.id(s)).click();
 	}
 
 	/**
@@ -80,22 +79,21 @@ public class ShopaholicEbayTest {
 	 */
 	@Test(priority = 2, dataProvider = "AddWatchListTest")
 	public void f2(String s) {
-		this.driver.findElement(By.id("gh-eb")).click();
-		this.driver.findElement(By.linkText("My eBay")).click();
-		this.driver.findElement(By.cssSelector("a.vip.item-title")).click();
+
+		SelUtil.superClick(this.driver, "gh-eb:My eBay:Watch list:a.vip.item-title".split(":"),
+				new SelUtil.STRATEGY[] { STRATEGY.ID, STRATEGY.TEXT, STRATEGY.TEXT, STRATEGY.CSS });
+
 	}
 
 	/**
-	 * Add the particular item to your watchlist and validate that the item was
+	 * Add the particular item to your wish list and validate that the item was
 	 * added
 	 */
 	@Test(priority = 3, dataProvider = "AddWishListTest")
 	public void f3(String s) {
-		this.driver.findElement(By.id("gh-eb")).click();
-		this.driver.findElement(By.linkText("My eBay")).click();
-		this.driver.findElement(By.linkText("Wish list")).click();
-		this.driver.findElement(By.id("ttl_172102243053")).click();
-		this.driver.findElement(By.cssSelector("html")).click();
+
+		SelUtil.superClick(this.driver, "gh-eb:My eBay:Wish list:ttl_172102243053:html".split(":"),
+				new SelUtil.STRATEGY[] { STRATEGY.ID, STRATEGY.TEXT, STRATEGY.TEXT, STRATEGY.ID, STRATEGY.CSS });
 	}
 
 	@BeforeClass(alwaysRun = true)
